@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#154796</color>
+    <color name="colorPrimaryDark">#06285D</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="white">#FFF</color>
+    <color name="black">#000</color>
+
+    <color name="text_color_primary">#212121</color>
+    <color name="text_color_secondary">#424242</color>
+    <color name="text_color_ternary">#616161</color>
+    <color name="background_grey_e0">#e0e0e0</color>
+
+    <color name="grey_e6">#e6e6e6</color>
+
+
+    <color name="sos_delivered">#f13535</color>
+    <color name="sos_attending">#b3bf00</color>
+    <color name="sos_attended">#25a415</color>
+
+    <color name="active_crisis">#e84f7a</color>
+    <color name="crisis_episode">#e87e4f</color>
+    <color name="successful_crisis">#4fb7e8</color>
+</resources>

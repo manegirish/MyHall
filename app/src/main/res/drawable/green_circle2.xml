@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  ~ Copyright (c) 2016.
+  ~ All Right Reserved  Girish D. Mane (girishmane8692@gmail.com)
+  ~
+  -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="oval" >
+    <gradient android:startColor="@color/sos_attending" android:endColor="@color/sos_attending"
+        android:angle="270"/>
+</shape>
