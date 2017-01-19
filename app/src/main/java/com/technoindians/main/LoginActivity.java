@@ -59,7 +59,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
         }
         if (username.equalsIgnoreCase("test1234") && password.equalsIgnoreCase("1234")) {
             Preferences.save(Constants.USERNAME, "test1234");
-            Preferences.save(Constants.PASSWORD, "1234");
+            Preferences.save(Constants.PASSWORD, "1234567");
             Preferences.save(Constants.IS_LOGIN, "1");
 
             return true;
