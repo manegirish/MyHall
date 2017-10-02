@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">MyHall</string>
 
-    <string name="user_name">Username</string>
+    <string name="email">Email</string>
     <string name="password">Password</string>
     <string name="forgot_password">Forgot Password</string>
     <string name="register">Register Me!</string>
@@ -15,5 +15,12 @@
     <string name="old_password">Old Password</string>
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
+
+    <string name="no_internet">No Internet Connection</string>
+    <string name="network_error_occurred">Network Error Occurred</string>
+    <string name="internal_error_occurred">Internal Error Occurred</string>
+    <string name="action_failed">Action Failed</string>
+    <string name="success">Success</string>
+    <string name="successful">Successful</string>
 
 </resources>

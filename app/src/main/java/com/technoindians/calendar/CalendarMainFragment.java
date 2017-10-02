@@ -179,38 +179,4 @@ public class CalendarMainFragment extends Fragment {
             adapter.notifyDataSetChanged();
         }
     };
-
-  /*  @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        View view = inflater.inflate(R.layout.calendar_fragment_layout, container, false);
-        //Initialize CustomCalendarView from layout
-        calendarView = (CustomCalendarView) view.findViewById(R.id.calendar_view);
-        //Initialize calendar with date
-        Calendar currentCalendar = Calendar.getInstance(Locale.getDefault());
-        //Show Monday as first date of week
-        calendarView.setFirstDayOfWeek(Calendar.MONDAY);
-        //Show/hide overflow days of a month
-        calendarView.setShowOverflowDate(true);
-        //call refreshCalendar to update calendar the view
-        calendarView.refreshCalendar(currentCalendar);
-        //Handling custom calendar events
-        calendarView.setCalendarListener(new CalendarListener() {
-            @Override
-            public void onDateSelected(Date date) {
-                SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-                ShowToast.toast(activity,""+df.format(date));
-                //  Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onMonthChanged(Date date) {
-                SimpleDateFormat df = new SimpleDateFormat("MM-yyyy");
-                ShowToast.toast(activity,""+df.format(date));
-                //   Toast.makeText(MainActivity.this, df.format(date), Toast.LENGTH_SHORT).show();
-            }
-        });
-        return view;*/
-    // }
 }

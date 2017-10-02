@@ -6,7 +6,7 @@
 
 package com.technoindians.pops;
 
-import android.app.Activity;
+import android.content.Context;
 import android.widget.Toast;
 
 /**
@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 public class ShowToast {
 
-    public static void toast(Activity activity,String message){
-        Toast.makeText(activity.getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+    public static void toast(Context context, String message){
+        Toast.makeText(context,message,Toast.LENGTH_SHORT).show();
     }
 }

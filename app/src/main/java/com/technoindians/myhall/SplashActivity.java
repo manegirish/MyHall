@@ -21,8 +21,8 @@ import com.technoindians.variales.Constants;
 
 /**
  * @author Girish D M(girishmane8692@gmail.com)
- * Created on 27/10/16.
- * Last Modified on 27/10/16.
+ *         Created on 27/10/16.
+ *         Last Modified on 27/10/16.
  */
 
 public class SplashActivity extends Activity {
@@ -40,6 +40,7 @@ public class SplashActivity extends Activity {
     @Override
     protected void onStart() {
         super.onStart();
+        setLog(true);
         new CountDownTimer(1900, 100) {
             @Override
             public void onTick(long millisUntilFinished) {
@@ -52,10 +53,23 @@ public class SplashActivity extends Activity {
         }.start();
     }
 
+    private void setLog(boolean showLog) {
+        Preferences.initialize(getApplicationContext());
+        if (showLog) {
+            Preferences.save("error", "1");
+            Preferences.save("info", "1");
+            Preferences.save("debug", "1");
+        } else {
+            Preferences.save("error", "0");
+            Preferences.save("info", "0");
+            Preferences.save("debug", "0");
+        }
+    }
+
     private void intent() {
         Intent next = new Intent(getApplicationContext(), LoginActivity.class);
-        if (Preferences.contains(Constants.IS_LOGIN)){
-            if (Preferences.get(Constants.IS_LOGIN).equalsIgnoreCase("1")){
+        if (Preferences.contains(Constants.IS_LOGIN)) {
+            if (Preferences.get(Constants.IS_LOGIN).equalsIgnoreCase("1")) {
                 next = new Intent(getApplicationContext(), MainActivity.class);
             }
         }

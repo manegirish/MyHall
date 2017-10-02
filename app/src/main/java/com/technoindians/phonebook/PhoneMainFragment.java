@@ -7,17 +7,26 @@
 
 package com.technoindians.phonebook;
 
-import android.app.FragmentTransaction;
+import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import com.technoindians.myhall.R;
+import com.technoindians.network.JsonArrays_;
+import com.technoindians.network.MakeCall;
+import com.technoindians.network.Urls;
+import com.technoindians.parser.GetJson_;
+import com.technoindians.preferences.Preferences;
 import com.technoindians.variales.Constants;
-import com.technoindians.variales.Fragments_;
+
+import okhttp3.FormBody;
+import okhttp3.RequestBody;
 
 /**
  * Created by girish on 26/10/16.
@@ -26,11 +35,8 @@ import com.technoindians.variales.Fragments_;
 public class PhoneMainFragment extends Fragment {
 
     public static final String TAG = PhoneMainFragment.class.getSimpleName();
-    private TabLayout tabs;
-    private int position = 0;
 
-    public PhoneMainFragment() {
-    }
+    private Activity activity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -40,86 +46,55 @@ public class PhoneMainFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.contact_main_layout, container, false);
-        tabs = (TabLayout) view.findViewById(R.id.sos_update_tabs);
+        View view = inflater.inflate(R.layout.list_layout, container, false);
 
-        tabs.addTab(tabs.newTab().setText("All Contact"));
-        tabs.addTab(tabs.newTab().setText("Family Contact"));
+        activity = getActivity();
 
-        Bundle bundle = getArguments();
-        if (bundle != null) {
-            if (bundle.containsKey(Constants.POSITION)) {
-                position = Integer.parseInt(bundle.getString(Constants.POSITION));
-                setTabFragment(position);
-            } else {
-                setTabFragment(0);
-            }
-        } else {
-            setTabFragment(0);
-        }
-
-        tabs.setOnTabSelectedListener(tabSelectedListener);
         return view;
     }
 
-    TabLayout.OnTabSelectedListener tabSelectedListener = new TabLayout.OnTabSelectedListener() {
-        @Override
-        public void onTabSelected(TabLayout.Tab tab) {
-            position = tab.getPosition();
-            setTabFragment(position);
-        }
-        @Override
-        public void onTabUnselected(TabLayout.Tab tab) {
-        }
-        @Override
-        public void onTabReselected(TabLayout.Tab tab) {
-
-        }
-    };
-
     @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-        outState.putString(Constants.POSITION, "" + position);
+    public void onResume() {
+        super.onResume();
+        Preferences.initialize(activity.getApplicationContext());
+        new GetFamilies().execute();
     }
 
-    @Override
-    public void onViewStateRestored(Bundle savedInstanceState) {
-        super.onViewStateRestored(savedInstanceState);
-        if (savedInstanceState != null) {
-            if (savedInstanceState.containsKey(Constants.POSITION)) {
-                position = Integer.parseInt(savedInstanceState.getString(Constants.POSITION));
-                setTabFragment(position);
+    private class GetFamilies extends AsyncTask<Void, Void, Integer> {
+
+        @Override
+        protected Integer doInBackground(Void... params) {
+            int result = 12;
+            RequestBody requestBody = new FormBody.Builder()
+                    .add(Constants.USER_ID, Preferences.get(Constants.USER_ID))
+                    .add(Constants.ACTION, JsonArrays_.GET_FAMILIES)
+                    .build();
+
+            try {
+                String response = MakeCall.post(Urls.DOMAIN + Urls.USER_OPERATIONS, requestBody, TAG, activity.getApplicationContext());
+                if (response != null) {
+                    JsonArray jsonArray = GetJson_.array(response, JsonArrays_.GET_FAMILIES, TAG, activity.getApplicationContext());
+                    if (jsonArray != null) {
+                        JsonObject object = jsonArray.get(0).getAsJsonObject();
+                        if (object.has(Constants.STATUS)) {
+
+                        } else {
+                            result = 11;
+                        }
+                    } else {
+                        result = 11;
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
             }
-        } else {
-            setTabFragment(position);
+            return result;
+        }
+
+        @Override
+        protected void onPostExecute(Integer integer) {
+            super.onPostExecute(integer);
         }
     }
 
-    private void setTabFragment(int tabPosition) {
-        tabs.getTabAt(tabPosition).select();
-        switch (tabPosition) {
-            case 0:
-                replaceFragment(new AllContactFragment());
-                break;
-            case 1:
-                replaceFragment(new AllFamilyFragment());
-                break;
-            default:
-                replaceFragment(new AllContactFragment());
-                break;
-        }
-    }
-
-    public void replaceFragment(Fragment fragment) {
-        android.support.v4.app.FragmentManager fm = getFragmentManager();
-        android.support.v4.app.FragmentTransaction ft = fm.beginTransaction();
-        Fragment oldFragment = fm.findFragmentByTag(Fragments_.ALL_CONTACT);
-        if (oldFragment != null) {
-            ft.remove(oldFragment);
-        }
-        ft.replace(R.id.sos_update_container, fragment, Fragments_.ALL_CONTACT);
-        ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        ft.commit();
-    }
 }
