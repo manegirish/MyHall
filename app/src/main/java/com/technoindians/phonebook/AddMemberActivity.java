@@ -189,6 +189,9 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
             RequestBody requestBody = new FormBody.Builder()
                     .add("firstname", first_name)
                     .add("lastname", last_name)
+
+                    // TODO: 03-10-2017  add middle name to contact and registration
+                    .add("middlename", "")
                     .add(Constants.EMAIL, email)
                     .add(Constants.PASSWORD, password)
                     .add("primary_phone", primaryContact)

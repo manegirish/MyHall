@@ -1,51 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/activity_splash"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="@dimen/activity_horizontal_margin">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="100dp"
-            android:background="@color/background_grey_e0"
-            android:gravity="center"
-            android:padding="10dp">
-
-            <ImageView
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:background="@drawable/ic_group" />
-        </LinearLayout>
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="7dp"
-            android:orientation="vertical">
+            android:background="@color/divider_color"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_horizontal_margin">
 
             <EditText
                 android:id="@+id/profile_fragment_first_name"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:gravity="start|center"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
                 android:hint="@string/first_name"
+                android:padding="@dimen/activity_vertical_margin"
                 android:textColor="@color/text_color_primary"
                 android:textSize="14sp" />
 
             <EditText
                 android:id="@+id/profile_fragment_middle_name"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:gravity="start|center"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
                 android:hint="@string/middle_name"
+                android:padding="@dimen/activity_vertical_margin"
                 android:textColor="@color/text_color_primary"
                 android:textSize="14sp" />
 
@@ -53,86 +43,111 @@
             <EditText
                 android:id="@+id/profile_fragment_last_name"
                 android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:gravity="start|center"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
                 android:hint="@string/last_name"
+                android:padding="@dimen/activity_vertical_margin"
                 android:textColor="@color/text_color_primary"
                 android:textSize="14sp" />
-        </LinearLayout>
-    </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/drop_shadow"
-        android:orientation="vertical">
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="45dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
+            <EditText
+                android:id="@+id/profile_fragment_primary_contact"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:text="@string/password"
-                android:textAllCaps="true"
-                android:textColor="@color/colorPrimaryDark"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:gravity="start|center_vertical"
+                android:hint="@string/primary_contact"
+                android:padding="@dimen/activity_vertical_margin"
+                android:textColor="@color/text_color_primary"
+                android:textSize="14sp" />
+
+
+            <EditText
+                android:id="@+id/profile_fragment_secondary_contact"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center_vertical"
+                android:hint="@string/secondary_contact"
+                android:padding="@dimen/activity_vertical_margin"
+                android:textColor="@color/text_color_primary"
+                android:textSize="14sp" />
 
             <Button
-                android:layout_width="100dp"
-                android:layout_height="30dp"
-                android:layout_alignParentEnd="true"
-                android:layout_alignParentRight="true"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
                 android:background="@color/colorPrimaryDark"
                 android:gravity="center"
+                android:paddingEnd="@dimen/profilePhotoSize"
+                android:paddingStart="@dimen/profilePhotoSize"
                 android:text="@string/save"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
-        </RelativeLayout>
+        </LinearLayout>
 
-        <View
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
-            android:background="@color/colorPrimaryDark" />
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:background="@drawable/drop_shadow"
+            android:orientation="vertical"
+            android:padding="@dimen/activity_vertical_margin">
 
-        <EditText
-            android:id="@+id/profile_fragment_old_pass"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="start|center"
-            android:hint="@string/old_password"
-            android:inputType="textPassword"
-            android:textColor="@color/text_color_primary"
-            android:textSize="14sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/change_password"
+                android:textAllCaps="true"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/profile_fragment_new_pass"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="start|center"
-            android:hint="@string/new_password"
-            android:inputType="textPassword"
-            android:textColor="@color/text_color_primary"
-            android:textSize="14sp" />
+            <EditText
+                android:id="@+id/profile_fragment_old_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:gravity="start|center"
+                android:hint="@string/old_password"
+                android:inputType="textPassword"
+                android:textColor="@color/text_color_primary"
+                android:textSize="14sp" />
+
+            <EditText
+                android:id="@+id/profile_fragment_new_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:hint="@string/new_password"
+                android:inputType="textPassword"
+                android:textColor="@color/text_color_primary"
+                android:textSize="14sp" />
 
 
-        <EditText
-            android:id="@+id/profile_fragment_confirm_pass"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:gravity="start|center"
-            android:hint="@string/confirm_password"
-            android:inputType="textPassword"
-            android:textColor="@color/text_color_primary"
-            android:textSize="14sp" />
+            <EditText
+                android:id="@+id/profile_fragment_confirm_pass"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="start|center"
+                android:hint="@string/confirm_password"
+                android:inputType="textPassword"
+                android:textColor="@color/text_color_primary"
+                android:textSize="14sp" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:layout_gravity="end|bottom"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:background="@color/colorPrimaryDark"
+                android:gravity="center"
+                android:paddingEnd="@dimen/profilePhotoSize"
+                android:paddingStart="@dimen/profilePhotoSize"
+                android:text="@string/save"
+                android:textAllCaps="true"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
     </LinearLayout>
-</LinearLayout>
+</ScrollView>
