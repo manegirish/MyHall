@@ -31,7 +31,7 @@ public class OtherValidation_ {
         boolean result = userName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
         boolean rtn;
         int len = userName.length();
-        rtn = len < 31 && len > 3 && result;
+        rtn = len < 40 && len > 3 && result;
         return rtn;
     }
 

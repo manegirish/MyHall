@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <include layout="@layout/activity_toolbar_layout" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:layout_marginEnd="@dimen/activity_horizontal_margin"
+                android:layout_marginStart="@dimen/activity_horizontal_margin"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/add_member_relation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ic_bottom_line_down_arrow"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/relation"
+                    android:paddingBottom="10dp"
+                    android:paddingEnd="@dimen/activity_horizontal_margin"
+                    android:paddingStart="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/add_member_first_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/first_name"
+                    android:imeOptions="actionNext"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/add_member_last_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/last_name"
+                    android:imeOptions="actionNext"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/add_member_email"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/email"
+                    android:imeOptions="actionNext"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/add_member_primary_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/primary_contact"
+                    android:imeOptions="actionNext"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/add_member_secondary_contact"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/secondary_contact"
+                    android:imeOptions="actionNext"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/add_member_password"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/password"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/add_member_password_confirm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:hint="@string/confirm_password"
+                    android:imeOptions="actionDone"
+                    android:inputType="textPassword"
+                    android:padding="@dimen/activity_horizontal_margin"
+                    android:textColor="@color/text_color_primary"
+                    android:textColorHint="@color/text_color_ternary"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

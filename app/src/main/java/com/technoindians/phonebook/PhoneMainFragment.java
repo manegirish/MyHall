@@ -9,6 +9,8 @@ package com.technoindians.phonebook;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -19,6 +21,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -26,6 +29,7 @@ import android.widget.TextView;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.technoindians.library.ActivityTransition;
 import com.technoindians.library.ErrorMessage_;
 import com.technoindians.library.OtherValidation_;
 import com.technoindians.myhall.R;
@@ -68,6 +72,7 @@ public class PhoneMainFragment extends Fragment {
 
         errorText = (TextView) view.findViewById(R.id.list_view_error);
         listView = (ListView) view.findViewById(R.id.list_view);
+        listView.setOnItemClickListener(onItemClick);
 
         FloatingActionButton createButton = (FloatingActionButton) view.findViewById(R.id.list_view_float);
         createButton.setOnClickListener(new View.OnClickListener() {
@@ -149,6 +154,17 @@ public class PhoneMainFragment extends Fragment {
         });
     }
 
+    private AdapterView.OnItemClickListener onItemClick = new AdapterView.OnItemClickListener() {
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (familyArrayList.get(position).getStatus() == 1) {
+                Intent listIntent = new Intent(activity.getApplicationContext(), ContactListActivity.class);
+                listIntent.putExtra(Constants.ID, familyArrayList.get(position).getId());
+                startActivity(listIntent, ActivityTransition.moveToNextAnimation(activity.getApplicationContext()));
+            }
+        }
+    };
+
     private class CreateFamily extends AsyncTask<String, Void, Integer> {
         @Override
         protected Integer doInBackground(String... params) {
@@ -189,6 +205,19 @@ public class PhoneMainFragment extends Fragment {
     }
 
     private class GetFamilies extends AsyncTask<Void, Void, Integer> {
+        private ProgressDialog nDialog;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            nDialog = new ProgressDialog(activity);
+            nDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            nDialog.setMessage("Loading...");
+            nDialog.setIndeterminate(false);
+            nDialog.setCancelable(false);
+            nDialog.setCanceledOnTouchOutside(false);
+            nDialog.show();
+        }
 
         @Override
         protected Integer doInBackground(Void... params) {
@@ -216,6 +245,9 @@ public class PhoneMainFragment extends Fragment {
         @Override
         protected void onPostExecute(Integer result) {
             super.onPostExecute(result);
+            if (nDialog != null && nDialog.isShowing()) {
+                nDialog.dismiss();
+            }
             warningView(result);
             if (result == 1) {
                 FamilyListAdapter familyListAdapter = new FamilyListAdapter(

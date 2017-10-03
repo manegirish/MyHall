@@ -24,6 +24,13 @@
         <activity android:name="com.technoindians.main.MainActivity"/>
         <activity android:name="com.technoindians.calendar.EventListActivity"/>
         <activity android:name="com.technoindians.gallery.FullImageActivity"/>
+
+        <activity
+            android:name="com.technoindians.phonebook.ContactListActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name="com.technoindians.phonebook.AddMemberActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

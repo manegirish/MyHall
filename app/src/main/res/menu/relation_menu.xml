@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/relation_menu_mother"
+        android:title="@string/mother"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_father"
+        android:title="@string/father"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_son"
+        android:title="@string/son"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_daughter"
+        android:title="@string/daughter"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_brother"
+        android:title="@string/brother"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_sister"
+        android:title="@string/sister"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_husband"
+        android:title="@string/husband"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_wife"
+        android:title="@string/wife"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_uncle"
+        android:title="@string/uncle"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_aunt"
+        android:title="@string/aunt"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_grandfather"
+        android:title="@string/grandfather"
+        app:showAsAction="ifRoom|withText" />
+    <item
+        android:id="@+id/relation_menu_grandmother"
+        android:title="@string/grandmother"
+        app:showAsAction="ifRoom|withText" />
+</menu>

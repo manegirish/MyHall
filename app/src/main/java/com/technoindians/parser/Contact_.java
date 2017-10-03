@@ -7,6 +7,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.reflect.TypeToken;
 import com.technoindians.network.JsonArrays_;
 import com.technoindians.phonebook.Family_;
+import com.technoindians.phonebook.Member_;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -45,6 +46,36 @@ public class Contact_ {
             family_.setStatus(11);
             familyArrayList.add(family_);
             return familyArrayList;
+        }
+    }
+
+    public static ArrayList<Member_> parseMembers(String response, Context _context, String TAG) {
+        ArrayList<Member_> memberArrayList = new ArrayList<>();
+        if (response == null) {
+            Member_ member_ = new Member_();
+            member_.setStatus(12);
+            memberArrayList.add(member_);
+            return memberArrayList;
+        }
+
+        if (Error_.noData(response, JsonArrays_.GET_MEMBERS, _context) == 2) {
+            Member_ member_ = new Member_();
+            member_.setStatus(2);
+            memberArrayList.add(member_);
+            return memberArrayList;
+        }
+        JsonArray jsonArray = GetJson_.array(response, JsonArrays_.GET_MEMBERS);
+
+        if (jsonArray != null) {
+            Gson gson = new Gson();
+            Type listType = new TypeToken<List<Member_>>() {
+            }.getType();
+            return gson.fromJson(GetJson_.array(response, JsonArrays_.GET_MEMBERS).toString(), listType);
+        } else {
+            Member_ member_ = new Member_();
+            member_.setStatus(11);
+            memberArrayList.add(member_);
+            return memberArrayList;
         }
     }
 }
