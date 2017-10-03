@@ -1,6 +1,5 @@
 package com.technoindians.parser;
 
-import android.content.Context;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
@@ -11,10 +10,25 @@ import com.google.gson.JsonParser;
 
 public class GetJson_ {
 
-    public static JsonArray array(String response, String jsonName, String TAG, Context context) {
+    public static JsonArray array(String response, String jsonName) {
         JsonParser jsonParser = new JsonParser();
-        JsonObject jsonObject = (JsonObject) jsonParser.parse(response);
-        return jsonObject.getAsJsonArray(jsonName);
+        JsonObject jsonObject = jsonParser.parse(response).getAsJsonObject();
+        if (jsonObject.has(jsonName)) {
+            return jsonObject.getAsJsonArray(jsonName);
+        } else {
+            return null;
+        }
+    }
+
+    public static JsonObject object(String response, String jsonName) {
+        JsonParser jsonParser = new JsonParser();
+        JsonObject jsonObject = jsonParser.parse(response).getAsJsonObject();
+        return jsonObject.getAsJsonObject(jsonName);
+    }
+
+    public static JsonObject json(String response) {
+        JsonParser jsonParser = new JsonParser();
+        return jsonParser.parse(response).getAsJsonObject();
     }
 
 }

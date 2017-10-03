@@ -16,11 +16,17 @@
     <string name="new_password">New Password</string>
     <string name="confirm_password">Confirm Password</string>
 
+    <string name="no_record_found">No Record Found</string>
     <string name="no_internet">No Internet Connection</string>
     <string name="network_error_occurred">Network Error Occurred</string>
     <string name="internal_error_occurred">Internal Error Occurred</string>
     <string name="action_failed">Action Failed</string>
     <string name="success">Success</string>
     <string name="successful">Successful</string>
+
+    <string name="create">Create</string>
+    <string name="create_family">Create Family</string>
+
+    <string name="hint_type_here">Type here....</string>
 
 </resources>

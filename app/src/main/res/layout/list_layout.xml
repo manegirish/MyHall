@@ -1,4 +1,5 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
@@ -8,7 +9,7 @@
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:divider="@color/divider"
+        android:divider="@color/divider_color"
         android:dividerHeight="1dp" />
 
     <TextView
@@ -19,11 +20,22 @@
         android:layout_marginStart="@dimen/activity_horizontal_margin"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:drawablePadding="@dimen/activity_vertical_margin"
-        android:drawableTop="@drawable/ic_profile_p"
+        android:drawableTop="@drawable/ic_sad_emoticon_gray"
         android:gravity="center"
-        android:visibility="gone"
         android:paddingTop="@dimen/activity_vertical_margin"
         android:text="@string/internal_error_occurred"
         android:textColor="@color/text_color_secondary"
-        android:textSize="16sp" />
-</LinearLayout>
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:visibility="gone" />
+
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/list_view_float"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:rippleColor="@color/colorAccent"
+        app:srcCompat="@drawable/ic_add_white"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+</RelativeLayout>

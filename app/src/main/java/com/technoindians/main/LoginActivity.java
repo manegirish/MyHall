@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -126,7 +125,7 @@ public class LoginActivity extends Activity implements View.OnClickListener {
             try {
                 String response = MakeCall.post(Urls.DOMAIN + Urls.LOGIN_URL, requestBody, TAG, getApplicationContext());
                 if (response != null) {
-                    JsonArray jsonArray = GetJson_.array(response, JsonArrays_.LOG_IN, TAG, getApplicationContext());
+                    JsonArray jsonArray = GetJson_.array(response, JsonArrays_.LOG_IN);
                     if (jsonArray != null) {
                         JsonObject object = jsonArray.get(0).getAsJsonObject();
                         if (object.has(Constants.STATUS)) {
