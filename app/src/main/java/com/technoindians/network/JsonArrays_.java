@@ -1,11 +1,9 @@
 package com.technoindians.network;
 
 /**
- * @author
- * Girish Mane <girishmane8692@gmail.com>
- * Created on 1/07/2016
- * Last modified 18/01/2017
- *
+ * @author Girish Mane <girishmane8692@gmail.com>
+ *         Created on 1/07/2016
+ *         Last modified 18/01/2017
  */
 
 public class JsonArrays_ {
@@ -16,5 +14,7 @@ public class JsonArrays_ {
     public static final String CREATE_FAMILY = "create_family";
     public static final String GET_MEMBERS = "get_members";
     public static final String ADD_CONTACT = "add_contact";
+    public static final String CHANGE_PASSWORD = "change_password";
+    public static final String CHANGE_PROFILE = "change_profile";
 }
 
