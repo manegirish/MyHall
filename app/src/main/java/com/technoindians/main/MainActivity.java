@@ -11,9 +11,8 @@ import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.technoindians.calendar.CalendarMainFragment;
-import com.technoindians.gallery.GalleryMainFragment;
-import com.technoindians.library.GetInitials;
 import com.technoindians.myhall.R;
+import com.technoindians.phonebook.MyFamilyFragment;
 import com.technoindians.phonebook.PhoneMainFragment;
 import com.technoindians.profile.ProfileMainFragment;
 import com.technoindians.variales.Fragments_;
@@ -54,8 +53,6 @@ public class MainActivity extends ActionBarActivity {
         tabLayout.setupWithViewPager(viewPager);
         tabLayout.setOnTabSelectedListener(onTabSelected);
         setupTabIcons();
-
-        GetInitials.get("Girish Mane Dnyandeo");
     }
 
     TabLayout.OnTabSelectedListener onTabSelected = new TabLayout.OnTabSelectedListener() {
@@ -64,9 +61,11 @@ public class MainActivity extends ActionBarActivity {
             int position = tab.getPosition();
             setTitle(adapter.getPageTitle(position));
         }
+
         @Override
         public void onTabUnselected(TabLayout.Tab tab) {
         }
+
         @Override
         public void onTabReselected(TabLayout.Tab tab) {
 
@@ -83,13 +82,13 @@ public class MainActivity extends ActionBarActivity {
     private void setupViewPager(ViewPager viewPager) {
         adapter = new ViewPagerAdapter(getSupportFragmentManager());
         adapter.addFrag(new CalendarMainFragment(), Fragments_.CALENDAR);
-        adapter.addFrag(new GalleryMainFragment(), Fragments_.GALLERY);
+        adapter.addFrag(new MyFamilyFragment(), Fragments_.GALLERY);
         adapter.addFrag(new PhoneMainFragment(), Fragments_.CONTACTS);
         adapter.addFrag(new ProfileMainFragment(), Fragments_.PROFILE);
         viewPager.setAdapter(adapter);
     }
 
-    public static void setTitle(String title){
+    public static void setTitle(String title) {
         toolbar.setTitle(title);
     }
 

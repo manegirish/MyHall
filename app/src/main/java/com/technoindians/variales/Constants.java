@@ -22,4 +22,13 @@ public class Constants {
     public static final String IS_LOGIN = "is_login";
     public static final String IMAGE = "image";
     public static final String PASSWORD = "password";
+
+
+    public static final String FIRST_NAME = "firstname";
+    public static final String MIDDLE_NAME = "middlename";
+    public static final String LAST_NAME = "lastname";
+
+    public static final String PRIMARY_PHONE = "primary_phone";
+    public static final String SECONDARY_PHONE = "secondary_phone";
+
 }

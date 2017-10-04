@@ -15,7 +15,7 @@ package com.technoindians.variales;
 public class Fragments_ {
 
     public static final String CALENDAR = "Calendar";
-    public static final String GALLERY = "Gallery";
+    public static final String GALLERY = "My Family";
     public static final String CONTACTS = "Contacts";
     public static final String PROFILE = "Profile";
 

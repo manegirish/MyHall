@@ -130,10 +130,16 @@ public class LoginActivity extends Activity implements View.OnClickListener {
                         JsonObject object = jsonArray.get(0).getAsJsonObject();
                         if (object.has(Constants.STATUS)) {
                             result = object.get(Constants.STATUS).getAsInt();
+                            Preferences.save(Constants.FIRST_NAME, object.get("firstname").getAsString());
+                            Preferences.save(Constants.MIDDLE_NAME, object.get("middlename").getAsString());
+                            Preferences.save(Constants.LAST_NAME, object.get("lastname").getAsString());
                             Preferences.save(Constants.USER_ID, object.get(Constants.USER_ID).getAsString());
-                            Preferences.save(Constants.NAME, object.get(Constants.NAME).getAsString());
+                            Preferences.save(Constants.NAME, object.get("firstname").getAsString()
+                                    + " " + object.get("lastname").getAsString());
                             Preferences.save(Constants.EMAIL, object.get(Constants.EMAIL).getAsString());
                             Preferences.save(Constants.IMAGE, object.get(Constants.IMAGE).getAsString());
+                            Preferences.save(Constants.PRIMARY_PHONE, object.get(Constants.PRIMARY_PHONE).getAsString());
+                            Preferences.save(Constants.SECONDARY_PHONE, object.get(Constants.SECONDARY_PHONE).getAsString());
                             Preferences.save(Constants.IS_LOGIN, "1");
                         } else {
                             result = 11;
