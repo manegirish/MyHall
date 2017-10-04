@@ -69,6 +69,7 @@ class FamilyListAdapter extends ArrayAdapter<Family_> {
 
             viewHolder.nameText = (TextView) view.findViewById(R.id.family_list_item_title);
             viewHolder.memberText = (TextView) view.findViewById(R.id.family_list_item_sub_title);
+            viewHolder.createdText = (TextView) view.findViewById(R.id.family_list_item_sub_title_two);
 
             view.setTag(viewHolder);
         } else {
@@ -79,12 +80,13 @@ class FamilyListAdapter extends ArrayAdapter<Family_> {
             view.setBackgroundColor(context.getResources().getColor(R.color.white));
             viewHolder.nameText.setText(familyList.get(position).getName());
             viewHolder.memberText.setText("Total " + "Members " + familyList.get(position).getTotal_members());
+            viewHolder.createdText.setText("Created " + "by " + familyList.get(position).getCreated_by());
         }
         return view;
     }
 
     private class ViewHolder {
-        TextView nameText, memberText;
+        TextView nameText, memberText, createdText;
     }
 
     public void filterUsers(String searchString) {

@@ -51,6 +51,7 @@ public class OtherValidation_ {
         else if (phoneNo.matches("\\(\\d{3}\\)-\\d{3}-\\d{4}")) return true;
             //return false if nothing matches the input
         else if (phoneNo.matches("\\+\\d{2}-\\d{10}")) return true;
+        else if (phoneNo.matches("\\+\\d{12}")) return true;
         else return false;
 
     }

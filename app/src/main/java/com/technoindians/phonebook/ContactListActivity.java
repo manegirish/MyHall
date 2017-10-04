@@ -4,13 +4,21 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -23,6 +31,7 @@ import com.technoindians.network.Urls;
 import com.technoindians.parser.Contact_;
 import com.technoindians.preferences.Preferences;
 import com.technoindians.variales.Constants;
+import com.technoindians.views.CircularReveal;
 
 import java.util.ArrayList;
 
@@ -33,7 +42,7 @@ import okhttp3.RequestBody;
  * Created by GirishM on 03-10-2017.
  */
 
-public class ContactListActivity extends AppCompatActivity {
+public class ContactListActivity extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = ContactListActivity.class.getSimpleName();
     private long id = 0;
@@ -41,6 +50,11 @@ public class ContactListActivity extends AppCompatActivity {
 
     private TextView errorText;
     private ListView listView;
+    private Toolbar searchToolbar;
+    private Menu search_menu;
+    private MenuItem item_search;
+
+    private MemberListAdapter memberListAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +73,7 @@ public class ContactListActivity extends AppCompatActivity {
                 onBackPressed();
             }
         });
+        setSearchToolbar();
 
         TextView titleText = (TextView) findViewById(R.id.activity_toolbar_title);
         titleText.setText(this.getResources().getString(R.string.contact));
@@ -76,6 +91,10 @@ public class ContactListActivity extends AppCompatActivity {
                 startActivity(createIntent, ActivityTransition.moveToNextAnimation(getApplicationContext()));
             }
         });
+
+        AppCompatImageView searchButton = (AppCompatImageView) findViewById(R.id.activity_toolbar_search_button);
+        searchButton.setVisibility(View.VISIBLE);
+        searchButton.setOnClickListener(this);
 
         Intent data = getIntent();
         if (data != null && data.hasExtra(Constants.ID)) {
@@ -101,6 +120,96 @@ public class ContactListActivity extends AppCompatActivity {
         } else {
             onBackPressed();
         }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.activity_toolbar_search_button:
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    CircularReveal.circleReveal(R.id.searchtoolbar, 1, true, true, ContactListActivity.this);
+                } else {
+                    searchToolbar.setVisibility(View.VISIBLE);
+                }
+                item_search.expandActionView();
+                break;
+        }
+    }
+
+    private void setSearchToolbar() {
+        searchToolbar = (Toolbar) findViewById(R.id.searchtoolbar);
+        if (searchToolbar != null) {
+            searchToolbar.inflateMenu(R.menu.menu_search);
+            search_menu = searchToolbar.getMenu();
+
+            searchToolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP)
+                        CircularReveal.circleReveal(R.id.searchtoolbar, 1, true, false, ContactListActivity.this);
+                    else
+                        searchToolbar.setVisibility(View.GONE);
+                }
+            });
+
+            item_search = search_menu.findItem(R.id.action_filter_search);
+
+            MenuItemCompat.setOnActionExpandListener(item_search, new MenuItemCompat.OnActionExpandListener() {
+                @Override
+                public boolean onMenuItemActionCollapse(MenuItem item) {
+                    // Do something when collapsed
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        CircularReveal.circleReveal(R.id.searchtoolbar, 1, true, false, ContactListActivity.this);
+                    } else
+                        searchToolbar.setVisibility(View.GONE);
+                    return true;
+                }
+
+                @Override
+                public boolean onMenuItemActionExpand(MenuItem item) {
+                    // Do something when expanded
+                    return true;
+                }
+            });
+            initSearchView();
+        }
+    }
+
+    private void initSearchView() {
+        final SearchView searchView =
+                (SearchView) search_menu.findItem(R.id.action_filter_search).getActionView();
+        // Enable/Disable Submit button in the keyboard
+        searchView.setSubmitButtonEnabled(false);
+        // Change search close button image
+        ImageView closeButton = (ImageView) searchView.findViewById(R.id.search_close_btn);
+        closeButton.setImageResource(R.drawable.vi_cancel_white);
+        // set hint and the text colors
+        EditText txtSearch = ((EditText) searchView.findViewById(android.support.v7.appcompat.R.id.search_src_text));
+        txtSearch.setHint("Search...");
+        txtSearch.setHintTextColor(getResources().getColor(R.color.white));
+        txtSearch.setTextColor(getResources().getColor(R.color.white));
+        txtSearch.setBackgroundColor(this.getResources().getColor(R.color.transparent));
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                callSearch(query);
+                searchView.clearFocus();
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                callSearch(newText);
+                return true;
+            }
+
+            private void callSearch(String query) {
+                if (memberListAdapter != null) {
+                    memberListAdapter.filterUsers(query);
+                }
+            }
+        });
     }
 
     private void warningView(int status) {
@@ -161,8 +270,8 @@ public class ContactListActivity extends AppCompatActivity {
             }
             warningView(result);
             if (result == 1) {
-                MemberListAdapter memberListAdapter = new MemberListAdapter(getApplicationContext(), memberArrayList);
-                listView.setAdapter(memberListAdapter );
+                memberListAdapter = new MemberListAdapter(getApplicationContext(), memberArrayList);
+                listView.setAdapter(memberListAdapter);
             }
         }
     }

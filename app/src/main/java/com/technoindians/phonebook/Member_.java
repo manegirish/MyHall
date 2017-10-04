@@ -32,6 +32,9 @@ public class Member_ {
     @SerializedName("secondary_phone")
     private String secondary_phone;
 
+    @SerializedName("relation")
+    private String relation;
+
     @SerializedName(Constants.STATUS)
     private int status;
 
@@ -59,6 +62,10 @@ public class Member_ {
         this.secondary_phone = secondary_phone;
     }
 
+    public void setRelation(String relation) {
+        this.relation = relation;
+    }
+
     public int getStatus() {
         return status;
     }
@@ -77,6 +84,10 @@ public class Member_ {
 
     public String getPrimary_phone() {
         return primary_phone;
+    }
+
+    public String getRelation() {
+        return relation;
     }
 
     public String getSecondary_phone() {

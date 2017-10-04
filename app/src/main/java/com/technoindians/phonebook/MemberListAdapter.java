@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.technoindians.myhall.R;
@@ -69,6 +70,9 @@ class MemberListAdapter extends ArrayAdapter<Member_> {
 
             viewHolder.nameText = (TextView) view.findViewById(R.id.family_list_item_title);
             viewHolder.memberText = (TextView) view.findViewById(R.id.family_list_item_sub_title);
+            viewHolder.warningText = (TextView) view.findViewById(R.id.family_list_item_warning);
+
+            viewHolder.mainLayout = (LinearLayout) view.findViewById(R.id.family_list_item_main_layout);
 
             view.setTag(viewHolder);
         } else {
@@ -76,18 +80,24 @@ class MemberListAdapter extends ArrayAdapter<Member_> {
         }
 
         if (memberList.get(position).getStatus() == 1) {
+            viewHolder.mainLayout.setVisibility(View.VISIBLE);
+            viewHolder.warningText.setVisibility(View.GONE);
             view.setBackgroundColor(context.getResources().getColor(R.color.white));
             viewHolder.nameText.setText(memberList.get(position).getName());
-            viewHolder.memberText.setText(memberList.get(position).getEmail());
+            viewHolder.memberText.setText(memberList.get(position).getRelation());
+        } else {
+            viewHolder.mainLayout.setVisibility(View.GONE);
+            viewHolder.warningText.setVisibility(View.VISIBLE);
         }
         return view;
     }
 
     private class ViewHolder {
-        TextView nameText, memberText;
+        TextView nameText, memberText, warningText;
+        LinearLayout mainLayout;
     }
 
-    public void filterUsers(String searchString) {
+    void filterUsers(String searchString) {
         memberList.clear();
         if (searchString == null) {
             memberList.addAll(list);

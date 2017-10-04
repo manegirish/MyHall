@@ -9,7 +9,16 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <include layout="@layout/activity_toolbar_layout" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <include layout="@layout/activity_toolbar_layout" />
+
+            <include
+                layout="@layout/main_search_toolbar"
+                android:visibility="gone" />
+        </RelativeLayout>
 
         <include layout="@layout/list_layout" />
 

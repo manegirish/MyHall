@@ -7,7 +7,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
@@ -44,7 +43,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     private String relation = "";
 
     private TextView relationText;
-    private EditText firstNameBox, lastNameBox, emailBox, primaryContactBox, secondaryContactBox,
+    private EditText firstNameBox, middleNameBox, lastNameBox, emailBox, primaryContactBox, secondaryContactBox,
             passwordBox, confirmPasswordBox;
 
     @Override
@@ -76,6 +75,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         relationText.setOnClickListener(this);
 
         firstNameBox = (EditText) findViewById(R.id.add_member_first_name);
+        middleNameBox = (EditText) findViewById(R.id.add_member_middle_name);
         lastNameBox = (EditText) findViewById(R.id.add_member_last_name);
         emailBox = (EditText) findViewById(R.id.add_member_email);
         primaryContactBox = (EditText) findViewById(R.id.add_member_primary_contact);
@@ -86,7 +86,6 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         Intent data = getIntent();
         if (data != null && data.hasExtra(Constants.ID)) {
             id = data.getLongExtra(Constants.ID, 0);
-            Log.e(TAG, "id: " + id);
         }
     }
 
@@ -115,20 +114,22 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
                 break;
             case R.id.activity_toolbar_post:
                 String first_name = firstNameBox.getText().toString().trim();
+                String middle_name = middleNameBox.getText().toString().trim();
                 String last_name = lastNameBox.getText().toString().trim();
                 String email = emailBox.getText().toString().trim();
                 String primaryContact = primaryContactBox.getText().toString().trim();
                 String secondaryContact = secondaryContactBox.getText().toString().trim();
                 String password = passwordBox.getText().toString().trim();
                 String password_confirm = confirmPasswordBox.getText().toString().trim();
-                if (isValid(first_name, last_name, email, password, password_confirm)) {
-                    new AddMember(first_name, last_name, email, password, primaryContact, secondaryContact).execute();
+                if (isValid(first_name, middle_name, last_name, email, password, password_confirm)) {
+                    new AddMember(first_name, middle_name, last_name, email, password, primaryContact,
+                            secondaryContact).execute();
                 }
                 break;
         }
     }
 
-    private boolean isValid(String first_name, String last_name, String email, String password,
+    private boolean isValid(String first_name, String middle_name, String last_name, String email, String password,
                             String password_confirm) {
         if (relation.trim().length() <= 0) {
             ShowToast.toast(getApplicationContext(), "Select relation");
@@ -136,6 +137,10 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         }
         if (first_name.length() <= 0 || !OtherValidation_.isValidName(first_name)) {
             firstNameBox.setError("Invalid First Name");
+            return false;
+        }
+        if (middle_name.length() > 0 && !OtherValidation_.isValidName(middle_name)) {
+            middleNameBox.setError("Invalid Middle Name");
             return false;
         }
         if (last_name.length() <= 0 || !OtherValidation_.isValidName(last_name)) {
@@ -158,12 +163,13 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
     }
 
     private class AddMember extends AsyncTask<Void, Void, Integer> {
-        String first_name, last_name, email, password, primaryContact, secondaryContact;
+        String first_name, middle_name, last_name, email, password, primaryContact, secondaryContact;
         private ProgressDialog nDialog;
 
-        AddMember(String first_name, String last_name, String email, String password,
+        AddMember(String first_name, String middle_name, String last_name, String email, String password,
                   String primaryContact, String secondaryContact) {
             this.first_name = first_name;
+            this.middle_name = middle_name;
             this.last_name = last_name;
             this.email = email;
             this.password = password;
@@ -189,9 +195,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
             RequestBody requestBody = new FormBody.Builder()
                     .add("firstname", first_name)
                     .add("lastname", last_name)
-
-                    // TODO: 03-10-2017  add middle name to contact and registration
-                    .add("middlename", "")
+                    .add("middlename", middle_name)
                     .add(Constants.EMAIL, email)
                     .add(Constants.PASSWORD, password)
                     .add("primary_phone", primaryContact)

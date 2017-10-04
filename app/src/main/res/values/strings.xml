@@ -35,6 +35,7 @@
 
     <string name="hint_type_here">Type here....</string>
 
+    <string name="no_result_found">No Result Found</string>
     <string name="primary_contact">Primary Contact</string>
     <string name="secondary_contact">Secondary Contact</string>
     <string name="relation">Relation</string>
