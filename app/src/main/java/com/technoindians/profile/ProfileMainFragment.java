@@ -4,13 +4,21 @@ import android.app.ProgressDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.technoindians.library.LoginValidation_;
@@ -23,6 +31,7 @@ import com.technoindians.parser.GetJson_;
 import com.technoindians.pops.ShowSnack;
 import com.technoindians.preferences.Preferences;
 import com.technoindians.variales.Constants;
+import com.technoindians.views.CircleTransform;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -34,8 +43,13 @@ import okhttp3.RequestBody;
 public class ProfileMainFragment extends Fragment implements View.OnClickListener {
 
     public static final String TAG = ProfileMainFragment.class.getSimpleName();
+    private boolean passwordOpen = false;
 
     private EditText firstBox, middleBox, lastBox, primaryBox, secondaryBox, oldBox, newBox, confirmBox;
+    private TextView profileButton, nameText, emailText;
+    private ImageView profileImage;
+    private LinearLayout passwordLayout;
+    private RelativeLayout enablePasswordLayout;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -53,7 +67,9 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
         confirmBox = (EditText) view.findViewById(R.id.profile_fragment_confirm_pass);
 
         firstBox.setText(Preferences.get(Constants.FIRST_NAME));
+        firstBox.addTextChangedListener(textWatcher);
         middleBox.setText(Preferences.get(Constants.MIDDLE_NAME));
+        middleBox.addTextChangedListener(textWatcher);
         lastBox.setText(Preferences.get(Constants.LAST_NAME));
         primaryBox.setText(Preferences.get(Constants.PRIMARY_PHONE));
         secondaryBox.setText(Preferences.get(Constants.SECONDARY_PHONE));
@@ -61,11 +77,63 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
         Button passwordButton = (Button) view.findViewById(R.id.profile_fragment_password_button);
         passwordButton.setOnClickListener(this);
 
-        Button profileButton = (Button) view.findViewById(R.id.profile_fragment_profile_button);
+        profileButton = (TextView) view.findViewById(R.id.profile_fragment_profile_button);
         profileButton.setOnClickListener(this);
+        profileButton.setVisibility(View.GONE);
 
+        nameText = (TextView) view.findViewById(R.id.profile_fragment_name);
+        emailText = (TextView) view.findViewById(R.id.profile_fragment_email);
+
+        profileImage = (ImageView) view.findViewById(R.id.profile_fragment_image);
+
+        passwordLayout = (LinearLayout) view.findViewById(R.id.profile_fragment_password_layout);
+        enablePasswordLayout = (RelativeLayout) view.findViewById(R.id.profile_fragment_password_enable);
+        enablePasswordLayout.setOnClickListener(this);
+
+        setProfile();
         return view;
     }
+
+    private void setProfile() {
+        emailText.setText(Preferences.get(Constants.EMAIL));
+        nameText.setText(Preferences.get(Constants.NAME));
+        Glide.with(getActivity().getApplicationContext())
+                .load(Preferences.get(Constants.IMAGE))
+                .fitCenter()
+                .diskCacheStrategy(DiskCacheStrategy.RESULT)
+                .placeholder(R.drawable.ic_group)
+                .crossFade()
+                .thumbnail(0.5f)
+                .transform(new CircleTransform(getActivity().getApplicationContext()))
+                .into(profileImage);
+    }
+
+    private void togglePassword() {
+        if (passwordOpen) {
+            passwordOpen = false;
+            passwordLayout.setVisibility(View.GONE);
+        } else {
+            passwordOpen = true;
+            passwordLayout.setVisibility(View.VISIBLE);
+        }
+    }
+
+    private TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+            profileButton.setVisibility(View.VISIBLE);
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+
+        }
+    };
 
     private boolean validatePassword(String new_password, String confirm_password, String old_password) {
         if (old_password.length() <= 0) {
@@ -139,6 +207,9 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
                     new UpdateProfile(first_name, middle_name, last_name, primary_contact, secondary_contact).execute();
                 }
                 break;
+            case R.id.profile_fragment_password_enable:
+                togglePassword();
+                break;
         }
     }
 
@@ -208,12 +279,14 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
                 nDialog.dismiss();
             }
             if (integer == 1) {
+                profileButton.setVisibility(View.GONE);
                 Preferences.save(Constants.FIRST_NAME, first_name);
                 Preferences.save(Constants.MIDDLE_NAME, middle_name);
                 Preferences.save(Constants.LAST_NAME, last_name);
                 Preferences.save(Constants.NAME, first_name + " " + last_name);
                 Preferences.save(Constants.PRIMARY_PHONE, primary_contact);
                 Preferences.save(Constants.SECONDARY_PHONE, secondary_contact);
+                setProfile();
             }
             showResponse(integer, firstBox);
         }
