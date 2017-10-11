@@ -7,8 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.technoindians.library.RandomColor;
 import com.technoindians.myhall.R;
 
 import java.util.ArrayList;
@@ -71,6 +73,9 @@ class FamilyListAdapter extends ArrayAdapter<Family_> {
             viewHolder.memberText = (TextView) view.findViewById(R.id.family_list_item_sub_title);
             viewHolder.createdText = (TextView) view.findViewById(R.id.family_list_item_sub_title_two);
 
+            viewHolder.circleImage = (ImageView) view.findViewById(R.id.family_list_item_image);
+            viewHolder.iconImage = (ImageView) view.findViewById(R.id.family_list_item_icon);
+
             view.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) view.getTag();
@@ -81,12 +86,17 @@ class FamilyListAdapter extends ArrayAdapter<Family_> {
             viewHolder.nameText.setText(familyList.get(position).getName());
             viewHolder.memberText.setText("Total " + "Members " + familyList.get(position).getTotal_members());
             viewHolder.createdText.setText("Created " + "by " + familyList.get(position).getCreated_by());
+
+            viewHolder.circleImage.setImageResource(R.drawable.primary_circle);
+            viewHolder.circleImage.setColorFilter(RandomColor.get(context));
+            viewHolder.iconImage.setImageResource(R.drawable.ic_family_white);
         }
         return view;
     }
 
     private class ViewHolder {
         TextView nameText, memberText, createdText;
+        ImageView circleImage, iconImage;
     }
 
     public void filterUsers(String searchString) {

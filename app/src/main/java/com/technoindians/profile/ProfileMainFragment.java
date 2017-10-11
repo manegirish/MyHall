@@ -10,15 +10,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.technoindians.library.LoginValidation_;
@@ -31,7 +28,6 @@ import com.technoindians.parser.GetJson_;
 import com.technoindians.pops.ShowSnack;
 import com.technoindians.preferences.Preferences;
 import com.technoindians.variales.Constants;
-import com.technoindians.views.CircleTransform;
 
 import okhttp3.FormBody;
 import okhttp3.RequestBody;
@@ -46,7 +42,7 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
     private boolean passwordOpen = false;
 
     private EditText firstBox, middleBox, lastBox, primaryBox, secondaryBox, oldBox, newBox, confirmBox;
-    private TextView profileButton, nameText, emailText;
+    private TextView profileButton, nameText, emailText, initialText;
     private ImageView profileImage;
     private LinearLayout passwordLayout;
     private RelativeLayout enablePasswordLayout;
@@ -74,7 +70,7 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
         primaryBox.setText(Preferences.get(Constants.PRIMARY_PHONE));
         secondaryBox.setText(Preferences.get(Constants.SECONDARY_PHONE));
 
-        Button passwordButton = (Button) view.findViewById(R.id.profile_fragment_password_button);
+        TextView passwordButton = (TextView) view.findViewById(R.id.profile_fragment_password_button);
         passwordButton.setOnClickListener(this);
 
         profileButton = (TextView) view.findViewById(R.id.profile_fragment_profile_button);
@@ -83,6 +79,7 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
 
         nameText = (TextView) view.findViewById(R.id.profile_fragment_name);
         emailText = (TextView) view.findViewById(R.id.profile_fragment_email);
+        initialText = (TextView) view.findViewById(R.id.profile_fragment_initials);
 
         profileImage = (ImageView) view.findViewById(R.id.profile_fragment_image);
 
@@ -95,17 +92,10 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
     }
 
     private void setProfile() {
+        Preferences.initialize(getActivity().getApplicationContext());
         emailText.setText(Preferences.get(Constants.EMAIL));
         nameText.setText(Preferences.get(Constants.NAME));
-        Glide.with(getActivity().getApplicationContext())
-                .load(Preferences.get(Constants.IMAGE))
-                .fitCenter()
-                .diskCacheStrategy(DiskCacheStrategy.RESULT)
-                .placeholder(R.drawable.ic_group)
-                .crossFade()
-                .thumbnail(0.5f)
-                .transform(new CircleTransform(getActivity().getApplicationContext()))
-                .into(profileImage);
+        initialText.setText(Preferences.get(Constants.NAME).substring(0, 1).toUpperCase());
     }
 
     private void togglePassword() {
@@ -157,7 +147,7 @@ public class ProfileMainFragment extends Fragment implements View.OnClickListene
             firstBox.setError("Invalid First Name");
             return false;
         }
-        if (middle_name.length() > 0 && !OtherValidation_.isValidName(last_name)) {
+        if (middle_name.length() > 0 && !OtherValidation_.isValidMiddleName(middle_name)) {
             middleBox.setError("Invalid Middle Name");
             return false;
         }

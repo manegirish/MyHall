@@ -7,9 +7,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.technoindians.library.RandomColor;
 import com.technoindians.myhall.R;
 
 import java.util.ArrayList;
@@ -71,6 +73,9 @@ class MemberListAdapter extends ArrayAdapter<Member_> {
             viewHolder.nameText = (TextView) view.findViewById(R.id.family_list_item_title);
             viewHolder.memberText = (TextView) view.findViewById(R.id.family_list_item_sub_title);
             viewHolder.warningText = (TextView) view.findViewById(R.id.family_list_item_warning);
+            viewHolder.initialText = (TextView) view.findViewById(R.id.family_list_item_initials);
+
+            viewHolder.circleImage = (ImageView) view.findViewById(R.id.family_list_item_image);
 
             viewHolder.mainLayout = (LinearLayout) view.findViewById(R.id.family_list_item_main_layout);
 
@@ -85,6 +90,10 @@ class MemberListAdapter extends ArrayAdapter<Member_> {
             view.setBackgroundColor(context.getResources().getColor(R.color.white));
             viewHolder.nameText.setText(memberList.get(position).getName());
             viewHolder.memberText.setText(memberList.get(position).getRelation());
+
+            viewHolder.circleImage.setImageResource(R.drawable.primary_circle);
+            viewHolder.initialText.setText(memberList.get(position).getName().substring(0, 1).toUpperCase());
+            viewHolder.circleImage.setColorFilter(RandomColor.get(context));
         } else {
             viewHolder.mainLayout.setVisibility(View.GONE);
             viewHolder.warningText.setVisibility(View.VISIBLE);
@@ -93,8 +102,9 @@ class MemberListAdapter extends ArrayAdapter<Member_> {
     }
 
     private class ViewHolder {
-        TextView nameText, memberText, warningText;
+        TextView nameText, memberText, warningText, initialText;
         LinearLayout mainLayout;
+        ImageView circleImage;
     }
 
     void filterUsers(String searchString) {

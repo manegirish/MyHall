@@ -6,6 +6,7 @@ import android.content.pm.ActivityInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -70,6 +71,9 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
         TextView submitText = (TextView) findViewById(R.id.activity_toolbar_post);
         submitText.setVisibility(View.VISIBLE);
         submitText.setOnClickListener(this);
+
+        AppCompatImageView searchButton = (AppCompatImageView) findViewById(R.id.activity_toolbar_search_button);
+        searchButton.setVisibility(View.GONE);
 
         relationText = (TextView) findViewById(R.id.add_member_relation);
         relationText.setOnClickListener(this);
@@ -139,7 +143,7 @@ public class AddMemberActivity extends AppCompatActivity implements View.OnClick
             firstNameBox.setError("Invalid First Name");
             return false;
         }
-        if (middle_name.length() > 0 && !OtherValidation_.isValidName(middle_name)) {
+        if (middle_name.length() > 0 && !OtherValidation_.isValidMiddleName(middle_name)) {
             middleNameBox.setError("Invalid Middle Name");
             return false;
         }

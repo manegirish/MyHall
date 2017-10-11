@@ -31,7 +31,15 @@ public class OtherValidation_ {
         boolean result = userName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
         boolean rtn;
         int len = userName.length();
-        rtn = len < 40 && len > 3 && result;
+        rtn = len < 40 && len > 1 && result;
+        return rtn;
+    }
+
+    public static boolean isValidMiddleName(String userName) {
+        boolean result = userName.matches("[a-zA-z]+([ '-][a-zA-Z]+)*");
+        boolean rtn;
+        int len = userName.length();
+        rtn = len < 40 && len > 0 && result;
         return rtn;
     }
 
